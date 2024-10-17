@@ -1,4 +1,5 @@
 # Eventure
+theme:jekyll-theme-architect
 Ercan Bahri Nazlıoğlu
 Gizem Gökçe Işık
 Onur Tanımış
