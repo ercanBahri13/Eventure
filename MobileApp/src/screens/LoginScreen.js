@@ -1,6 +1,6 @@
 // frontend/src/screens/LoginScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -23,7 +23,7 @@ export default function LoginScreen({ navigation }) {
         // If login successful:
         const userData = await response.json();
         // Navigate to Main, pass the user as a param
-        navigation.navigate('Main', { user: userData });
+        navigation.navigate('Home', { user: userData });
       } else {
         const errorMsg = await response.text();
         Alert.alert('Login Failed', errorMsg);
@@ -34,38 +34,42 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Submit" onPress={handleLogin} />
-    </View>
-  );
-}
+      <View style={styles.container}>
+        <Text style={styles.title}>Login</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <Button title="Submit" onPress={handleLogin} />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center'
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginVertical: 10,
-    padding: 10,
-    borderRadius: 5
+        {/* Forgot Password Button */}
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text style={styles.forgot}>Forgot Password?</Text>
+        </TouchableOpacity>
+      </View>
+    );
   }
-});
+
+  const styles = StyleSheet.create({
+    container: { flex: 1, padding: 20, justifyContent: 'center' },
+    title: { fontSize: 24, marginBottom: 20, textAlign: 'center' },
+    input: {
+      borderWidth: 1, borderColor: '#ccc',
+      marginVertical: 10, padding: 10, borderRadius: 5
+    },
+    forgot: {
+      marginTop: 15,
+      color: 'blue',
+      textAlign: 'center',
+    },
+  });

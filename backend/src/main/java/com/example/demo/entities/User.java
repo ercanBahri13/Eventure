@@ -3,6 +3,9 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 import java.util.Arrays;
 import java.util.List;
+import jakarta.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name = "users") // The table name in the DB will be 'users'
@@ -29,6 +32,8 @@ public class User {
     // We'll store interests as a comma-separated string in the DB
     private String interests;
 
+    private String resetToken;
+
     public User() {
     }
 
@@ -40,6 +45,7 @@ public class User {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.interests = interests;
+        this.resetToken = resetToken;
     }
 
 
@@ -109,7 +115,13 @@ public class User {
         this.interests = interests;
     }
 
+    public String getResetToken() {
+        return resetToken;
+    }
 
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
 
     /**
      * Utility method to convert the comma-separated interests string to a list.

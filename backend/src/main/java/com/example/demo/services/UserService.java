@@ -4,6 +4,12 @@ import com.example.demo.entities.User;
 import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.demo.entities.User;
+import com.example.demo.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -39,6 +45,29 @@ public class UserService {
         }
 
         return existingUser;
+    }
+    public void generateResetToken(String email) throws Exception {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new Exception("Email not found");
+        }
+        String token = UUID.randomUUID().toString();
+        user.setResetToken(token);
+        userRepository.save(user);
+
+        // In a real app, you'd send an email containing this link or token
+        System.out.println("Simulating email: Your reset token = " + token);
+    }
+
+    public void resetPassword(String token, String newPassword) throws Exception {
+        // find user by resetToken
+        User user = userRepository.findByResetToken(token);
+        if (user == null) {
+            throw new Exception("Invalid token");
+        }
+        user.setPassword(newPassword); // you would hash in real app
+        user.setResetToken(null);      // clear the token
+        userRepository.save(user);
     }
 
     // Additional methods if needed...
