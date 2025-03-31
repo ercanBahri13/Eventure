@@ -25,5 +25,9 @@ public class EventService {
         return eventRepository.save(event);
     }
 
+    public Event getEventById(Long id) throws Exception {
+        return eventRepository.findById(id)
+                .orElseThrow(() -> new Exception("Event not found with ID: " + id));
+    }
     // Optionally: get single event, update event, etc.
 }

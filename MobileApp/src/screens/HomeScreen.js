@@ -2,9 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, route }) {
   const [searchText, setSearchText] = useState('');
   const [events, setEvents] = useState([]);
+  const user = route.params?.user;
+  const userId = user?.id;
+  //const {userId } = route.params || {};
 
   const fetchEvents = async (query = '') => {
     try {
@@ -33,10 +36,10 @@ export default function HomeScreen({ navigation }) {
     // For now, just navigate back to Welcome
     navigation.navigate('Welcome');
   };
-
+/*
   const renderEventItem = ({ item }) => (
     <View style={styles.eventItem}>
-      {/* If there's an imageUrl, display it */}
+      {}
       {item.imageUrl ? (
         <Image source={{ uri: item.imageUrl }} style={styles.eventImage} />
       ) : null}
@@ -47,7 +50,28 @@ export default function HomeScreen({ navigation }) {
       </View>
     </View>
   );
-
+*/
+const renderEventItem = ({ item }) => (
+  <TouchableOpacity
+    style={styles.eventItem}
+    onPress={() =>
+      navigation.navigate('EventDetail', {
+        eventId: item.id,
+        userId: userId, // Replace with actual userId
+      })
+    }
+  >
+    {/* If there's an imageUrl, display it */}
+    {item.imageUrl ? (
+      <Image source={{ uri: item.imageUrl }} style={styles.eventImage} />
+    ) : null}
+    <View style={styles.eventDetails}>
+      <Text style={styles.eventName}>{item.name}</Text>
+      <Text style={styles.eventLocation}>{item.location} - {item.city}</Text>
+      <Text style={styles.eventDate}>{item.date} ({item.startTime} - {item.endTime})</Text>
+    </View>
+  </TouchableOpacity>
+);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Eventure</Text>
@@ -73,6 +97,13 @@ export default function HomeScreen({ navigation }) {
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+            onPress={() => navigation.navigate('Profile', { userId })}
+            style={[styles.logoutButton, { backgroundColor: 'blue', marginTop: 10 }]}
+          >
+            <Text style={styles.logoutText}>Profile</Text>
+          </TouchableOpacity>
       </View>
     </View>
   );

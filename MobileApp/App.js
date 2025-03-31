@@ -10,7 +10,10 @@ import MainScreen from './src/screens/MainScreen';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 import ResetPasswordScreen from './src/screens/ResetPasswordScreen';
 import HomeScreen from './src/screens/HomeScreen';
-
+import EventDetailScreen from './src/screens/EventDetailScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import FriendListScreen from './src/screens/FriendListScreen';
+import EditProfileScreen from './src/screens/EditProfileScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -23,7 +26,11 @@ export default function App() {
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerBackVisible: false }} />
+        <Stack.Screen name="EventDetail" component={EventDetailScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="FriendList" component={FriendListScreen} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

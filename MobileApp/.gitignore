@@ -28,6 +28,12 @@ build/
 .idea
 .gradle
 local.properties
+# IntelliJ files to ignore
+.idea/caches/
+.idea/usage.statistics.xml
+.idea/indexLayout.xml
+.idea/workspace.xml
+.idea/dictionaries
 *.iml
 *.hprof
 .cxx/
@@ -39,6 +45,9 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
+android/.gradle
+ios/Pods
+*.log
 
 # fastlane
 #

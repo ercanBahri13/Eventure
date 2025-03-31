@@ -55,6 +55,26 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/save-event")
+    public ResponseEntity<?> saveEvent(@RequestBody SaveRegisterRequest request) {
+        try {
+            userService.saveEventForUser(request.getUserId(), request.getEventId());
+            return ResponseEntity.ok("Event saved successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/register-event")
+    public ResponseEntity<?> registerEvent(@RequestBody SaveRegisterRequest request) {
+        try {
+            userService.registerEventForUser(request.getUserId(), request.getEventId());
+            return ResponseEntity.ok("Event registered successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     // Create a small inner static class or a separate file
     public static class ResetPasswordRequest {
         private String resetToken;
@@ -71,6 +91,23 @@ public class AuthController {
         }
         public void setNewPassword(String newPassword) {
             this.newPassword = newPassword;
+        }
+    }
+    public static class SaveRegisterRequest {
+        private Long userId;
+        private Long eventId;
+
+        public Long getUserId() {
+            return userId;
+        }
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+        public Long getEventId() {
+            return eventId;
+        }
+        public void setEventId(Long eventId) {
+            this.eventId = eventId;
         }
     }
 }

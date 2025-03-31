@@ -6,6 +6,12 @@ import java.util.List;
 import jakarta.persistence.*;
 import java.util.Arrays;
 import java.util.List;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users") // The table name in the DB will be 'users'
@@ -31,11 +37,39 @@ public class User {
 
     // We'll store interests as a comma-separated string in the DB
     private String interests;
-
     private String resetToken;
+    private String profileImage; // URL or path to profile image
+    // ------------------------
+    //  Many-to-Many for savedEvents
+    // ------------------------
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_saved_events",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private List<Event> savedEvents = new ArrayList<>();
 
-    public User() {
-    }
+    // ------------------------
+    //  Many-to-Many for registeredEvents
+    // ------------------------
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_registered_events",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private List<Event> registeredEvents = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private List<User> friends = new ArrayList<>();
+
+    public User() {}
 
     public User(String name, String surname, String email, String username, String password, String phoneNumber, String interests) {
         this.name = name;
@@ -122,6 +156,26 @@ public class User {
     public void setResetToken(String resetToken) {
         this.resetToken = resetToken;
     }
+    public String getProfileImage() {
+        return profileImage;
+    }
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+    }
+
+    // Utility to add a friend
+    public void addFriend(User friend) {
+        if (!this.friends.contains(friend)) {
+            this.friends.add(friend);
+        }
+    }
 
     /**
      * Utility method to convert the comma-separated interests string to a list.
@@ -140,5 +194,32 @@ public class User {
     @Transient
     public void setInterestsFromList(List<String> interestsList) {
         this.interests = String.join(",", interestsList);
+    }
+
+    public List<Event> getSavedEvents() {
+        return savedEvents;
+    }
+    public void setSavedEvents(List<Event> savedEvents) {
+        this.savedEvents = savedEvents;
+    }
+
+    public List<Event> getRegisteredEvents() {
+        return registeredEvents;
+    }
+    public void setRegisteredEvents(List<Event> registeredEvents) {
+        this.registeredEvents = registeredEvents;
+    }
+
+    // Utility methods to add events safely
+    public void addSavedEvent(Event event) {
+        if (!this.savedEvents.contains(event)) {
+            this.savedEvents.add(event);
+        }
+    }
+
+    public void addRegisteredEvent(Event event) {
+        if (!this.registeredEvents.contains(event)) {
+            this.registeredEvents.add(event);
+        }
     }
 }

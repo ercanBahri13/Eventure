@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 export default function MainScreen({ route }) {
   // We passed 'user' in the params from the LoginScreen
+
   const { user } = route.params || {};
 
   return (

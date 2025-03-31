@@ -30,5 +30,9 @@ public class EventController {
         return eventService.createEvent(event);
     }
 
+    @GetMapping("/{id}")
+    public Event getEventById(@PathVariable Long id) throws Exception {
+        return eventService.getEventById(id);
+    }
     // Additional endpoints if needed...
 }
