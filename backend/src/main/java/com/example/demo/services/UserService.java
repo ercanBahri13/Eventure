@@ -163,5 +163,11 @@ public class UserService {
                 .orElseThrow(() -> new Exception("User not found with ID: " + id));
         return user.getFriends();
     }
+
+    public List<User> searchUsers(String query) {
+        // Suppose we have a custom query in the UserRepository
+        return userRepository.findByUsernameContainingIgnoreCaseOrNameContainingIgnoreCase(query, query);
+    }
+
     // Additional methods if needed...
 }

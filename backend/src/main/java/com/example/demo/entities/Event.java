@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "events")
@@ -48,6 +49,11 @@ public class Event {
         this.capacity = capacity;
         this.imageUrl = imageUrl;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "creator_id") // foreign key in events table
+    @JsonBackReference
+    private User creator;
 
     // getters and setters...
     // e.g. getId(), setId(), getName(), setName(), etc.
@@ -147,6 +153,14 @@ public class Event {
 
     public void setParticipantUsers(String participantUsers) {
         this.participantUsers = participantUsers;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
 }

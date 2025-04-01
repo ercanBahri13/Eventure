@@ -12,6 +12,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "users") // The table name in the DB will be 'users'
@@ -68,6 +69,17 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     private List<User> friends = new ArrayList<>();
+    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Event> createdEvents = new ArrayList<>();
+
+    public List<Event> getCreatedEvents() {
+        return createdEvents;
+    }
+
+    public void setCreatedEvents(List<Event> createdEvents) {
+        this.createdEvents = createdEvents;
+    }
 
     public User() {}
 

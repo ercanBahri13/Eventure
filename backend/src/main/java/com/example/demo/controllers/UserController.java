@@ -39,7 +39,13 @@ public class UserController {
         return userService.getFriends(id);
     }
 
-    // You could add removeFriend, etc. if needed.
+    @GetMapping("/search")
+    public List<User> searchUsers(@RequestParam String query) {
+        return userService.searchUsers(query);
+    }
+
+
+
 
 
 

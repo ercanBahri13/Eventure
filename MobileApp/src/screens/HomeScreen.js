@@ -104,6 +104,26 @@ const renderEventItem = ({ item }) => (
           >
             <Text style={styles.logoutText}>Profile</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => navigation.navigate('CreateEvent', { userId })}
+            >
+              <Text>Create Event</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => navigation.navigate('Notifications', { userId })}
+            >
+              <Text>🔔</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => navigation.navigate('SearchFriends', { userId })}
+            >
+              <Text>Find Friends</Text>
+            </TouchableOpacity>
       </View>
     </View>
   );

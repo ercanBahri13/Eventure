@@ -48,6 +48,7 @@ export default function ProfileScreen({ route, navigation }) {
   // We'll extract savedEvents and registeredEvents
   const savedEvents = userData.savedEvents || [];
   const registeredEvents = userData.registeredEvents || [];
+  const createdEvents = userData.createdEvents || [];
 
   return (
     <View style={styles.container}>
@@ -95,6 +96,21 @@ export default function ProfileScreen({ route, navigation }) {
       <Text style={styles.sectionTitle}>Registered Events</Text>
       <FlatList
         data={registeredEvents}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.eventItem}
+            onPress={() => navigation.navigate('EventDetail', { eventId: item.id, userId })}
+          >
+            <Text style={styles.eventName}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
+      />
+      {/* Display Created Events */}
+      <Text style={styles.sectionTitle}>Created Events</Text>
+      <FlatList
+        data={createdEvents}
         keyExtractor={(item) => item.id.toString()}
         horizontal
         renderItem={({ item }) => (

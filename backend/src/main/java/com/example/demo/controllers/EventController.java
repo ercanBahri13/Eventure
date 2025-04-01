@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.example.demo.dto.CreateEventRequest;
 
 @RestController
 @RequestMapping("/events")
@@ -33,6 +34,11 @@ public class EventController {
     @GetMapping("/{id}")
     public Event getEventById(@PathVariable Long id) throws Exception {
         return eventService.getEventById(id);
+    }
+
+    @PostMapping("/create")
+    public Event createEventUser(@RequestBody CreateEventRequest request) throws Exception {
+        return eventService.createEventUser(request);
     }
     // Additional endpoints if needed...
 }
