@@ -38,8 +38,25 @@ export default function FriendListScreen({ route, navigation }) {
       <Text style={styles.title}>Friends</Text>
       <FlatList
         data={friends}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderFriend}
+        keyExtractor={(item, index) => String(item.id ?? index)}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.friendItem}
+            onPress={() =>
+              navigation.navigate('PublicProfile', {
+                viewedUserId: item.id,
+                currentUserId, // this is the logged-in user
+              })
+            }
+          >
+            {item.profileImage ? (
+              <Image source={{ uri: item.profileImage }} style={styles.friendImage} />
+            ) : (
+              <Image source={require('../../assets/logo.png')} style={styles.friendImage} />
+            )}
+            <Text style={styles.friendText}>{item.username}</Text>
+          </TouchableOpacity>
+        )}
       />
     </View>
   );

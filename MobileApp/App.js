@@ -17,7 +17,7 @@ import EditProfileScreen from './src/screens/EditProfileScreen';
 import CreateEventScreen from './src/screens/CreateEventScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import SearchFriendsScreen from './src/screens/SearchFriendsScreen';
-//import PublicProfileScreen from './src/screens/PublicProfileScreen';
+import PublicProfileScreen from './src/screens/PublicProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +39,7 @@ export default function App() {
         <Stack.Screen name="CreateEvent" component={CreateEventScreen} />
         <Stack.Screen name="Notifications" component={NotificationsScreen} />
         <Stack.Screen name="SearchFriends" component={SearchFriendsScreen} />
+        <Stack.Screen name="PublicProfile" component={PublicProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
