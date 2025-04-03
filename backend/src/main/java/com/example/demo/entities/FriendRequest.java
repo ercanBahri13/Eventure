@@ -1,29 +1,41 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.*;
 import com.example.demo.enums.RequestStatus;
-import com.example.demo.entities.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "friend_requests")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class FriendRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "from_user_id")
+    // Avoid infinite recursion by ignoring large fields in 'User'
+    @JsonIgnoreProperties({
+            "friends", "savedEvents", "registeredEvents", "createdEvents",
+            "password", "resetToken", "interests", "phoneNumber"
+    })
     private User fromUser;
 
-    @ManyToOne
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "to_user_id")
+    @JsonIgnoreProperties({
+            "friends", "savedEvents", "registeredEvents", "createdEvents",
+            "password", "resetToken", "interests", "phoneNumber"
+    })
     private User toUser;
 
     @Enumerated(EnumType.STRING)
     private RequestStatus status; // PENDING, ACCEPTED, REJECTED
 
-    public FriendRequest() {}
+    public FriendRequest() {
+        this.status = RequestStatus.PENDING;
+    }
 
     public FriendRequest(User fromUser, User toUser) {
         this.fromUser = fromUser;
@@ -31,19 +43,13 @@ public class FriendRequest {
         this.status = RequestStatus.PENDING;
     }
 
-    // getters and setters
-    public RequestStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(RequestStatus status) {
-        this.status = status;
+    public Long getId() {
+        return id;
     }
 
     public User getFromUser() {
         return fromUser;
     }
-
     public void setFromUser(User fromUser) {
         this.fromUser = fromUser;
     }
@@ -51,9 +57,14 @@ public class FriendRequest {
     public User getToUser() {
         return toUser;
     }
-
     public void setToUser(User toUser) {
         this.toUser = toUser;
     }
 
+    public RequestStatus getStatus() {
+        return status;
+    }
+    public void setStatus(RequestStatus status) {
+        this.status = status;
+    }
 }

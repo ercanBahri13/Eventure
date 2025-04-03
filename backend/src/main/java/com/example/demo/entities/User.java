@@ -13,8 +13,13 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({
+        "friends",
+        "hibernateLazyInitializer", "handler"
+})
 @Table(name = "users") // The table name in the DB will be 'users'
 public class User {
 
@@ -62,12 +67,13 @@ public class User {
     )
     private List<Event> registeredEvents = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_friends",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
+
     private List<User> friends = new ArrayList<>();
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
     @JsonManagedReference

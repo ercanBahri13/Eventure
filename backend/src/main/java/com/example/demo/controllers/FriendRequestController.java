@@ -1,21 +1,12 @@
 package com.example.demo.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-
+import com.example.demo.entities.FriendRequest;
+import com.example.demo.services.FriendRequestService;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import com.example.demo.entities.FriendRequest;
-import com.example.demo.services.FriendRequestService;
-import com.example.demo.enums.RequestStatus;
 @RestController
 @RequestMapping("/friend-requests")
 @CrossOrigin(origins = "*")
@@ -26,6 +17,7 @@ public class FriendRequestController {
 
     @GetMapping("/{userId}")
     public List<FriendRequest> getRequestsForUser(@PathVariable Long userId) {
+        // returns pending requests for that user
         return friendRequestService.getRequestsForUser(userId);
     }
 

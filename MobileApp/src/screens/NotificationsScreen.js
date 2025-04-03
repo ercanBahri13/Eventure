@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+// frontend/src/screens/NotificationsScreen.js
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 
 export default function NotificationsScreen({ route, navigation }) {
@@ -12,13 +13,15 @@ export default function NotificationsScreen({ route, navigation }) {
   const fetchRequests = async () => {
     try {
       const response = await fetch(`http://10.0.2.2:8080/friend-requests/${userId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setRequests(data);
-      } else {
+      if (!response.ok) {
         const errorMsg = await response.text();
         Alert.alert('Error', errorMsg);
+        return;
       }
+      const data = await response.json();
+      // Filter out any items that have no ID or fromUser
+      const safeData = data.filter(item => item && item.id);
+      setRequests(safeData);
     } catch (err) {
       Alert.alert('Error', err.message);
     }
@@ -58,28 +61,32 @@ export default function NotificationsScreen({ route, navigation }) {
     }
   };
 
-  const renderRequest = ({ item }) => (
-    <View style={styles.requestItem}>
-      <Text style={styles.requestText}>
-        {item.fromUser?.username} wants to be your friend.
-      </Text>
-      <View style={styles.actions}>
-        <TouchableOpacity style={styles.acceptBtn} onPress={() => handleAccept(item.id)}>
-          <Text style={styles.btnText}>Accept</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.rejectBtn} onPress={() => handleReject(item.id)}>
-          <Text style={styles.btnText}>Reject</Text>
-        </TouchableOpacity>
+  const renderRequest = ({ item }) => {
+    // item.fromUser or item.toUser might be null or undefined
+    const fromUsername = item.fromUser?.username || 'Unknown';
+    return (
+      <View style={styles.requestItem}>
+        <Text style={styles.requestText}>
+          {fromUsername} wants to be your friend.
+        </Text>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.acceptBtn} onPress={() => handleAccept(item.id)}>
+            <Text style={styles.btnText}>Accept</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.rejectBtn} onPress={() => handleReject(item.id)}>
+            <Text style={styles.btnText}>Reject</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  );
+    );
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Notifications</Text>
       <FlatList
         data={requests}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) => String(item?.id ?? index)}
         renderItem={renderRequest}
       />
     </View>

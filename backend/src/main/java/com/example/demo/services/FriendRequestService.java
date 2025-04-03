@@ -1,24 +1,5 @@
 package com.example.demo.services;
-import com.example.demo.entities.User;
-import com.example.demo.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.example.demo.entities.User;
-import com.example.demo.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-import com.example.demo.entities.Event;
-import com.example.demo.entities.User;
-import com.example.demo.repositories.UserRepository;
-import com.example.demo.repositories.EventRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.example.demo.controllers.UserController.UserUpdateRequest;
-
-import java.util.UUID;
-import java.util.List;
 import com.example.demo.entities.FriendRequest;
 import com.example.demo.entities.User;
 import com.example.demo.enums.RequestStatus;
@@ -28,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class FriendRequestService {
 
@@ -56,13 +38,17 @@ public class FriendRequestService {
         FriendRequest fr = friendRequestRepository.findById(requestId)
                 .orElseThrow(() -> new Exception("Request not found: " + requestId));
         fr.setStatus(RequestStatus.ACCEPTED);
-        // Add each other as friends if you want symmetrical friendship
+
         User from = fr.getFromUser();
         User to = fr.getToUser();
+
+        // Add each other as friends if you want symmetrical friendship
         from.addFriend(to);
         to.addFriend(from);
+
         userRepository.save(from);
         userRepository.save(to);
+
         return friendRequestRepository.save(fr);
     }
 
