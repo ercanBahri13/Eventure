@@ -36,21 +36,7 @@ export default function HomeScreen({ navigation, route }) {
     // For now, just navigate back to Welcome
     navigation.navigate('Welcome');
   };
-/*
-  const renderEventItem = ({ item }) => (
-    <View style={styles.eventItem}>
-      {}
-      {item.imageUrl ? (
-        <Image source={{ uri: item.imageUrl }} style={styles.eventImage} />
-      ) : null}
-      <View style={styles.eventDetails}>
-        <Text style={styles.eventName}>{item.name}</Text>
-        <Text style={styles.eventLocation}>{item.location} - {item.city}</Text>
-        <Text style={styles.eventDate}>{item.date} ({item.startTime} - {item.endTime})</Text>
-      </View>
-    </View>
-  );
-*/
+
 const renderEventItem = ({ item }) => (
   <TouchableOpacity
     style={styles.eventItem}
@@ -61,7 +47,29 @@ const renderEventItem = ({ item }) => (
       })
     }
   >
-    {/* If there's an imageUrl, display it */}
+
+   {/* If there's an imageUrl, display it */}
+    {item.imageUrl ? (
+      <Image source={{ uri: item.imageUrl }} style={styles.eventImage} />
+    ) : null}
+    <View style={styles.eventDetails}>
+      <Text style={styles.eventName}>{item.name}</Text>
+      <Text style={styles.eventLocation}>{item.location} - {item.city}</Text>
+      <Text style={styles.eventDate}>{item.date} ({item.startTime} - {item.endTime})</Text>
+    </View>
+  </TouchableOpacity>
+);
+// This renders an event item that navigates to MapScreen
+const renderMapItem = ({ item }) => (
+  <TouchableOpacity
+    style={styles.eventItem}
+    onPress={() =>
+      navigation.navigate('MapScreen', {
+        eventId: item.id,
+        userId: userId,
+      })
+    }
+  >
     {item.imageUrl ? (
       <Image source={{ uri: item.imageUrl }} style={styles.eventImage} />
     ) : null}
@@ -89,11 +97,18 @@ const renderEventItem = ({ item }) => (
       <FlatList
         data={events}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={renderEventItem}
+        renderItem={renderEventItem} //renderEventItem
         contentContainerStyle={styles.listContent}
       />
 
       <View style={styles.logoutContainer}>
+        <TouchableOpacity
+          style={[styles.logoutButton, { backgroundColor: 'green', marginTop: 10 }]}
+          onPress={() => navigation.navigate('MapScreen', { userId })}
+        >
+          <Text style={styles.logoutText}>Open Map</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
