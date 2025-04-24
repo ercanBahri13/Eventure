@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.*;
+
 @SpringBootApplication
-public class DemoApplication {
+public class DemoApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -24,4 +24,10 @@ public class DemoApplication {
 		return mapper;
 	}
 
+	// Serve static files from /uploads/ directory
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/uploads/**")
+				.addResourceLocations("file:uploads/");
+	}
 }

@@ -10,6 +10,7 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [interests, setInterests] = useState('');
+  //const [events, setInterests] = useState('');
 
   const handleRegister = async () => {
     if (!name || !surname || !email || !username || !password) {
