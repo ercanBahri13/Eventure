@@ -56,12 +56,14 @@ public class EventService {
         event.setStartTime(LocalTime.parse(req.startTime));
         event.setEndTime(LocalTime.parse(req.endTime));
 
+        event.setLatitude(req.getLatitude());
+        event.setLongitude(req.getLongitude());
         // 3) Link the creator
         event.setCreator(creator);
+
 
         // 4) Save
         return eventRepository.save(event);
     }
-
     // Optionally: get single event, update event, etc.
 }

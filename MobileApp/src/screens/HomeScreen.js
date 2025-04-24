@@ -1,6 +1,7 @@
 // frontend/src/screens/HomeScreen.js
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 
 export default function HomeScreen({ navigation, route }) {
   const [searchText, setSearchText] = useState('');
@@ -26,6 +27,9 @@ export default function HomeScreen({ navigation, route }) {
   useEffect(() => {
     // Load events on initial render
     fetchEvents();
+    console.log('🏠 HomeScreen mounted');
+    return () => console.log('🏠 HomeScreen unmounted');
+
   }, []);
 
   const handleSearch = () => {
@@ -95,50 +99,36 @@ const renderMapItem = ({ item }) => (
       </View>
 
       <FlatList
+
+
+        removeClippedSubviews={false}
+
         data={events}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderEventItem} //renderEventItem
         contentContainerStyle={styles.listContent}
       />
 
-      <View style={styles.logoutContainer}>
+
+      <View style={styles.navBar}>
         <TouchableOpacity
-          style={[styles.logoutButton, { backgroundColor: 'green', marginTop: 10 }]}
-          onPress={() => navigation.navigate('MapScreen', { userId })}
+          style={styles.navButton}
+          onPress={() => navigation.navigate('Profile', { userId })}
         >
-          <Text style={styles.logoutText}>Open Map</Text>
+          <Feather name="user" size={28} />
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-          <Text style={styles.logoutText}>Logout</Text>
-        </TouchableOpacity>
-
         <TouchableOpacity
-            onPress={() => navigation.navigate('Profile', { userId })}
-            style={[styles.logoutButton, { backgroundColor: 'blue', marginTop: 10 }]}
-          >
-            <Text style={styles.logoutText}>Profile</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() => navigation.navigate('CreateEvent', { userId })}
-            >
-              <Text>Create Event</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() => navigation.navigate('Notifications', { userId })}
-            >
-              <Text>🔔</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() => navigation.navigate('SearchFriends', { userId })}
-            >
-              <Text>Find Friends</Text>
-            </TouchableOpacity>
+          style={styles.navButton}
+          onPress={() => navigation.navigate('CreateEvent', { userId })}
+        >
+          <Feather name="plus-circle" size={28} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navButton}
+          onPress={() => navigation.navigate('MapScreen')}
+        >
+          <Feather name="map" size={28} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -173,11 +163,24 @@ const styles = StyleSheet.create({
   eventLocation: { color: '#555', marginTop: 5 },
   eventDate: { color: '#555', marginTop: 2 },
 
-  logoutContainer: { marginVertical: 10, alignItems: 'center' },
-  logoutButton: {
-    backgroundColor: 'red',
-    padding: 10,
-    borderRadius: 5
-  },
-  logoutText: { color: '#fff', fontWeight: 'bold' }
+
+   navBar: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 60,
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        borderTopWidth: 1,
+        borderTopColor: '#ddd',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
+    navButton: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

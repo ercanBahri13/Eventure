@@ -179,7 +179,7 @@ public class Event {
         return longitude;
     }
 
-    public void setLongitude(double langitude){
+    public void setLongitude(double longitude){
         this.longitude = longitude;
     }
 

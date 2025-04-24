@@ -13,6 +13,8 @@ export default function CreateEventScreen({ route, navigation }) {
   const [location, setLocation] = useState('');
   const [capacity, setCapacity] = useState('50');
   const [imageUrl, setImageUrl] = useState('');
+  const [latitude, setLatitude]   = useState('');
+  const [longitude, setLongitude] = useState('');
 
   const handleCreateEvent = async () => {
     try {
@@ -27,6 +29,8 @@ export default function CreateEventScreen({ route, navigation }) {
           startTime,
           endTime,
           city,
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
           location,
           capacity: parseInt(capacity),
           imageUrl
@@ -56,6 +60,8 @@ export default function CreateEventScreen({ route, navigation }) {
       <TextInput style={styles.input} placeholder="Location" value={location} onChangeText={setLocation} />
       <TextInput style={styles.input} placeholder="Capacity" value={capacity} onChangeText={setCapacity} keyboardType="numeric" />
       <TextInput style={styles.input} placeholder="Image URL" value={imageUrl} onChangeText={setImageUrl} />
+      <TextInput style={styles.input} placeholder="Latitude" value={latitude} onChangeText={setLatitude} />
+      <TextInput style={styles.input} placeholder="Longitude" value={longitude} onChangeText={setLongitude} />
 
       <Button title="Save Event" onPress={handleCreateEvent} />
     </View>

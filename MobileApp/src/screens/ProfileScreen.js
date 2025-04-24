@@ -11,6 +11,8 @@ export default function ProfileScreen({ route, navigation }) {
   useFocusEffect(
       useCallback(() => {
         fetchUserProfile();
+         console.log('👤 ProfileScreen mounted');
+         return () => console.log('👤 ProfileScreen unmounted');
       }, [])
     );
 
@@ -79,6 +81,10 @@ export default function ProfileScreen({ route, navigation }) {
       {/* Display Saved Events */}
       <Text style={styles.sectionTitle}>Saved Events</Text>
       <FlatList
+
+        removeClippedSubviews={false}
+
+
         data={savedEvents}
         keyExtractor={(item) => item.id.toString()}
         horizontal
@@ -95,6 +101,11 @@ export default function ProfileScreen({ route, navigation }) {
       {/* Display Registered Events */}
       <Text style={styles.sectionTitle}>Registered Events</Text>
       <FlatList
+
+
+        removeClippedSubviews={false}
+
+
         data={registeredEvents}
         keyExtractor={(item) => item.id.toString()}
         horizontal
@@ -110,6 +121,10 @@ export default function ProfileScreen({ route, navigation }) {
       {/* Display Created Events */}
       <Text style={styles.sectionTitle}>Created Events</Text>
       <FlatList
+
+        removeClippedSubviews={false}
+
+
         data={createdEvents}
         keyExtractor={(item) => item.id.toString()}
         horizontal
