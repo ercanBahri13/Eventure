@@ -26,6 +26,8 @@ public class Event {
     private String location;         // more specific address or location name
     private int capacity;            // maximum number of participants
     private String imageUrl;         // store an image link for demonstration
+    private double latitude;
+    private double longitude;
 
     // We'll store participant usernames as a comma-separated string for simplicity
     @JsonIgnore
@@ -37,7 +39,7 @@ public class Event {
 
     public Event(String name, String type, String creatorUsername,
                  LocalDate date, LocalTime startTime, LocalTime endTime,
-                 String city, String location, int capacity, String imageUrl) {
+                 String city, String location, int capacity, String imageUrl, double latitude, double longitude) {
         this.name = name;
         this.type = type;
         this.creatorUsername = creatorUsername;
@@ -48,6 +50,8 @@ public class Event {
         this.location = location;
         this.capacity = capacity;
         this.imageUrl = imageUrl;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     @ManyToOne
@@ -161,6 +165,22 @@ public class Event {
 
     public void setCreator(User creator) {
         this.creator = creator;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double langitude){
+        this.longitude = longitude;
     }
 
 }
