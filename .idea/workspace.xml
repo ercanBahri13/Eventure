@@ -5,20 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d585e9b-e114-4fa3-b7bf-b230403cc72d" name="Changes" comment="added profile image feature&#10;enhanced profile image handling&#10;- Added support for viewing, changing, and deleting profile images in EditProfileScreen.&#10;- added dynamic behavior so that profile image modal shows different options when image exists or not.&#10;- Fixed full image preview modal and image visibility issues.">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/config/WebConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MobileApp/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MobileApp/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MobileApp/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MobileApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/EditProfileScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/EditProfileScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/CreateEventScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/CreateEventScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/FriendListScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/FriendListScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/NotificationsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/NotificationsScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/ProfileScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/ProfileScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/RegisterScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/RegisterScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/PublicProfileScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/PublicProfileScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MobileApp/src/screens/SearchFriendsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/MobileApp/src/screens/SearchFriendsScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

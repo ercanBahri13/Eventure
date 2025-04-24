@@ -85,6 +85,7 @@ export default function NotificationsScreen({ route, navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Notifications</Text>
       <FlatList
+        removeClippedSubviews={false}
         data={requests}
         keyExtractor={(item, index) => String(item?.id ?? index)}
         renderItem={renderRequest}

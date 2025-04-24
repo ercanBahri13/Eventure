@@ -104,7 +104,7 @@ const renderMapItem = ({ item }) => (
         removeClippedSubviews={false}
 
         data={events}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) => String(item?.id ?? index)}
         renderItem={renderEventItem} //renderEventItem
         contentContainerStyle={styles.listContent}
       />
