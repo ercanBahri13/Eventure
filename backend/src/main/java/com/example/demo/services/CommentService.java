@@ -13,6 +13,10 @@ import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.util.stream.Collectors;
+
 
 import java.util.stream.Collectors;
 
@@ -35,6 +39,16 @@ public class CommentService {
             c.setParent(p);
         }
         commentRepo.save(c);
+        // —–– Mentions: find all @username in the content
+        Pattern pattern = Pattern.compile("@(\\w+)");
+        Matcher matcher = pattern.matcher(req.content);
+        while (matcher.find()) {
+            String username = matcher.group(1);
+            User mentioned = userRepo.findByUsername(username);
+            if (mentioned != null) {
+                notificationSvc.mentionNotify(mentioned.getId(), u.getId(), eventId);
+            }
+        }
         return toDto(c, e.getCreator().getId());
     }
 
@@ -88,4 +102,9 @@ public class CommentService {
                 .collect(Collectors.toList());
         return r;
     }
+    @Autowired private NotificationService notificationSvc;
+
+
+
+
 }

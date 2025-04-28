@@ -92,6 +92,13 @@ const renderMapItem = ({ item }) => (
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Eventure</Text>
+      <TouchableOpacity
+        style={styles.notificationIcon}
+        onPress={() => navigation.navigate('Notifications', { userId })}
+      >
+        <Feather name="bell" size={24} color="#000" />
+      </TouchableOpacity>
+
 
       <View style={styles.searchContainer}>
         <TextInput
@@ -152,7 +159,14 @@ const renderMapItem = ({ item }) => (
           style={styles.navButton}
           onPress={() => navigation.navigate('Profile', { userId })}
         >
-          <Feather name="user" size={28} />
+        <Feather name="user" size={28} />
+        <TouchableOpacity
+          style={styles.addFriendButton}
+          onPress={() => navigation.navigate('SearchFriends', { userId })}
+        >
+          <Feather name="user-plus" size={28} color="#fff" />
+        </TouchableOpacity>
+
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.navButton}
@@ -219,5 +233,23 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    notificationIcon: {
+      position: 'absolute',
+      top: 20,
+      right: 20,
+      zIndex: 10,
+    },
+    addFriendButton: {
+      position: 'absolute',
+      bottom: 20,
+      right: 20,
+      backgroundColor: '#2196F3',
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      justifyContent: 'center',
+      alignItems: 'center',
+      elevation: 5,
     },
 });
