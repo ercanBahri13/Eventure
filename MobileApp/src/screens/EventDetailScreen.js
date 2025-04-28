@@ -11,11 +11,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import CommentsSection from '../screens/CommentsSection';
 
 export default function EventDetailScreen({ route, navigation }) {
   const { eventId, userId } = route.params || {};
   const [eventData, setEventData] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const organizerId = eventData?.creatorId ?? null;
+
+
 
   useEffect(() => {
     fetchSingleEvent();
@@ -147,6 +151,12 @@ export default function EventDetailScreen({ route, navigation }) {
           </View>
         </View>
       </Modal>
+      <CommentsSection
+        eventId={eventData.id}
+        userId={userId}
+        organizerId={eventData?.creatorId}
+        eventDate={eventData.date}
+      />
     </View>
   );
 }

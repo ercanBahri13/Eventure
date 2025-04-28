@@ -2,12 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import { Picker } from '@react-native-picker/picker';
+
 
 export default function HomeScreen({ navigation, route }) {
   const [searchText, setSearchText] = useState('');
   const [events, setEvents] = useState([]);
   const user = route.params?.user;
   const userId = user?.id;
+  const [typeFilter, setTypeFilter] = useState('');
+  const [cityFilter, setCityFilter] = useState('');
+
   //const {userId } = route.params || {};
 
   const fetchEvents = async (query = '') => {
@@ -98,12 +103,44 @@ const renderMapItem = ({ item }) => (
         <Button title="Search" onPress={handleSearch} />
       </View>
 
+      <View style={styles.filterContainer}>
+        <Picker
+          selectedValue={typeFilter}
+          style={styles.picker}
+          onValueChange={(itemValue) => setTypeFilter(itemValue)}
+        >
+          <Picker.Item label="All Types" value="" />
+          <Picker.Item label="Festival" value="Festival" />
+          <Picker.Item label="Concert" value="Concert" />
+          <Picker.Item label="Theatre" value="Theatre" />
+          <Picker.Item label="Food festival" value="Food festival" />
+          {/* Add more types if you have */}
+        </Picker>
+
+        <Picker
+          selectedValue={cityFilter}
+          style={styles.picker}
+          onValueChange={(itemValue) => setCityFilter(itemValue)}
+        >
+          <Picker.Item label="All Cities" value="" />
+          <Picker.Item label="Ankara" value="Ankara" />
+          <Picker.Item label="Istanbul" value="Istanbul" />
+          <Picker.Item label="Austin" value="Austin" />
+          {/* Add more cities */}
+        </Picker>
+      </View>
+
       <FlatList
 
 
         removeClippedSubviews={false}
 
-        data={events}
+        data={events.filter(event => {
+          const matchType = typeFilter ? event.type.toLowerCase() === typeFilter.toLowerCase() : true;
+          const matchCity = cityFilter ? event.city.toLowerCase() === cityFilter.toLowerCase() : true;
+          return matchType && matchCity;
+        })}
+
         keyExtractor={(item, index) => String(item?.id ?? index)}
         renderItem={renderEventItem} //renderEventItem
         contentContainerStyle={styles.listContent}
