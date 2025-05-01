@@ -28,7 +28,7 @@ public class User {
 
     private String password;
     private String phoneNumber;
-    private String interests;
+    private List<String> interests;
     private String resetToken;
     private String profileImage;
 
@@ -67,7 +67,7 @@ public class User {
     // Constructors
     public User() {}
 
-    public User(String name, String surname, String email, String username, String password, String phoneNumber, String interests) {
+    public User(String name, String surname, String email, String username, String password, String phoneNumber, List<String> interests) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -99,8 +99,8 @@ public class User {
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public String getInterests() { return interests; }
-    public void setInterests(String interests) { this.interests = interests; }
+    public List<String> getInterests() { return interests; }
+    public void setInterests(List<String> interests) { this.interests = interests; }
 
     public String getResetToken() { return resetToken; }
     public void setResetToken(String resetToken) { this.resetToken = resetToken; }
@@ -137,18 +137,5 @@ public class User {
         if (!this.registeredEvents.contains(event)) {
             this.registeredEvents.add(event);
         }
-    }
-
-    @Transient
-    public List<String> getInterestsAsList() {
-        if (this.interests == null || this.interests.trim().isEmpty()) {
-            return List.of();
-        }
-        return Arrays.asList(this.interests.split("\\s*,\\s*"));
-    }
-
-    @Transient
-    public void setInterestsFromList(List<String> interestsList) {
-        this.interests = String.join(",", interestsList);
     }
 }

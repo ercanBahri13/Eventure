@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -36,12 +36,13 @@ public class Event {
     private String participantUsers;
 
     // Additional columns if needed (e.g. description, price, etc.)
-
+    // tags for AI
+    private List<String> tags;
     public Event() {}
 
     public Event(String name, String type, String creatorUsername,
                  LocalDate date, LocalTime startTime, LocalTime endTime,
-                 String city, String location, int capacity, String imageUrl, double latitude, double longitude) {
+                 String city, String location, int capacity, String imageUrl, double latitude, double longitude, List<String> tags) {
         this.name = name;
         this.type = type;
         this.creatorUsername = creatorUsername;
@@ -54,6 +55,7 @@ public class Event {
         this.imageUrl = imageUrl;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.tags = tags;
     }
 
     @ManyToOne
@@ -185,6 +187,12 @@ public class Event {
 
     public void setLongitude(double longitude){
         this.longitude = longitude;
+    }
+
+    public void setTags(List<String> tags) {this.tags = tags;}
+
+    public List<String> getTags() {
+        return tags;
     }
 
 }
