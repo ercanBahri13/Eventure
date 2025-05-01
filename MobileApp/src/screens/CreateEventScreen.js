@@ -60,8 +60,8 @@ export default function CreateEventScreen({ route, navigation }) {
       <TextInput style={styles.input} placeholder="Location" value={location} onChangeText={setLocation} />
       <TextInput style={styles.input} placeholder="Capacity" value={capacity} onChangeText={setCapacity} keyboardType="numeric" />
       <TextInput style={styles.input} placeholder="Image URL" value={imageUrl} onChangeText={setImageUrl} />
-      <TextInput style={styles.input} placeholder="Latitude" value={latitude} onChangeText={setLatitude} />
-      <TextInput style={styles.input} placeholder="Longitude" value={longitude} onChangeText={setLongitude} />
+      <TextInput style={styles.input} placeholder="Latitude (e.g. 41.0082)" value={latitude} onChangeText={setLatitude} keyboardType="numeric" />
+      <TextInput style={styles.input} placeholder="Longitude (e.g. 28.9784)" value={longitude} onChangeText={setLongitude} keyboardType="numeric" />
 
       <Button title="Save Event" onPress={handleCreateEvent} />
     </View>

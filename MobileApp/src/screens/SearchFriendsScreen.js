@@ -81,6 +81,7 @@ export default function SearchFriendsScreen({ route, navigation }) {
       </View>
 
       <FlatList
+        removeClippedSubviews={false}
         data={results}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderUserItem}

@@ -72,6 +72,7 @@
        {/* Display Registered Events */}
        <Text style={styles.sectionTitle}>Registered Events</Text>
        <FlatList
+         removeClippedSubviews={false}
          data={registeredEvents}
          keyExtractor={(item, index) => String(item.id ?? index)}
          horizontal
@@ -90,6 +91,7 @@
        {/* Display Created Events */}
        <Text style={styles.sectionTitle}>Created Events</Text>
        <FlatList
+         removeClippedSubviews={false}
          data={createdEvents}
          keyExtractor={(item, index) => String(item.id ?? index)}
          horizontal

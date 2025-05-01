@@ -63,6 +63,7 @@ export default function FriendListScreen({ route, navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Friends</Text>
       <FlatList
+        removeClippedSubviews={false}
         data={friends}
         // We use a "safe" keyExtractor so if item.id is missing, fallback to index
         keyExtractor={(item, index) => String(item.id ?? index)}

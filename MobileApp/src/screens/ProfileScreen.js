@@ -69,7 +69,7 @@ export default function ProfileScreen({ route, navigation }) {
       {/* Friends Count */}
       <TouchableOpacity onPress={handleFriendsPress}>
         <Text style={styles.friends}>
-          Friends: {userData.friends ? userData.friends.length : 0}
+          Friends {userData.friends}
         </Text>
       </TouchableOpacity>
 
@@ -93,6 +93,11 @@ export default function ProfileScreen({ route, navigation }) {
             style={styles.eventItem}
             onPress={() => navigation.navigate('EventDetail', { eventId: item.id, userId })}
           >
+            {item.imageUrl ? (
+                <Image source={{ uri: item.imageUrl }} style={styles.eventImage} />
+              ) : (
+                <Image source={require('../../assets/logo.png')} style={styles.eventImage} />
+            )}
             <Text style={styles.eventName}>{item.name}</Text>
           </TouchableOpacity>
         )}
@@ -114,6 +119,11 @@ export default function ProfileScreen({ route, navigation }) {
             style={styles.eventItem}
             onPress={() => navigation.navigate('EventDetail', { eventId: item.id, userId })}
           >
+            {item.imageUrl ? (
+                <Image source={{ uri: item.imageUrl }} style={styles.eventImage} />
+              ) : (
+                <Image source={require('../../assets/logo.png')} style={styles.eventImage} />
+            )}
             <Text style={styles.eventName}>{item.name}</Text>
           </TouchableOpacity>
         )}
@@ -133,6 +143,11 @@ export default function ProfileScreen({ route, navigation }) {
             style={styles.eventItem}
             onPress={() => navigation.navigate('EventDetail', { eventId: item.id, userId })}
           >
+            {item.imageUrl ? (
+                <Image source={{ uri: item.imageUrl }} style={styles.eventImage} />
+              ) : (
+                <Image source={require('../../assets/logo.png')} style={styles.eventImage} />
+            )}
             <Text style={styles.eventName}>{item.name}</Text>
           </TouchableOpacity>
         )}
@@ -173,10 +188,18 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start'
   },
   eventItem: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#f9f9f9',
     padding: 10,
     margin: 5,
-    borderRadius: 5
+    borderRadius: 10,
+    alignItems: 'center',
+    width: 120,
   },
-  eventName: { fontWeight: 'bold' }
+  eventName: { fontWeight: 'bold' },
+  eventImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginBottom: 5,
+  }
 });
