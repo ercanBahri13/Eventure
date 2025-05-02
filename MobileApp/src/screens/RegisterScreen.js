@@ -10,7 +10,6 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [interests, setInterests] = useState('');
-  //const [events, setInterests] = useState('');
 
   const handleRegister = async () => {
     if (!name || !surname || !email || !username || !password) {
@@ -19,19 +18,26 @@ export default function RegisterScreen({ navigation }) {
     }
 
     try {
-      const response = await fetch('http://10.0.2.2:8080/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          surname,
-          email,
-          username,
-          password,
-          phoneNumber,
-          interests, // comma-separated
-        }),
-      });
+    // Assuming `interestsInput` is a comma-separated string from a TextInput:
+    const interestsArray = interests
+      .split(',')
+      .map(str => str.trim())
+      .filter(str => str.length > 0);
+
+    const response = await fetch('http://10.0.2.2:8080/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        surname,
+        email,
+        username,
+        password,
+        phoneNumber,
+        interests: interestsArray,  // <-- now an actual array
+      }),
+    });
+
 
       if (response.ok) {
         Alert.alert('Success', 'Registration complete. You can now log in.', [

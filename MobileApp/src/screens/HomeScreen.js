@@ -92,12 +92,7 @@ const renderMapItem = ({ item }) => (
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Eventure</Text>
-      <TouchableOpacity
-        style={styles.notificationIcon}
-        onPress={() => navigation.navigate('Notifications', { userId })}
-      >
-        <Feather name="bell" size={24} color="#000" />
-      </TouchableOpacity>
+
 
 
       <View style={styles.searchContainer}>
@@ -154,33 +149,38 @@ const renderMapItem = ({ item }) => (
       />
 
 
-      <View style={styles.navBar}>
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate('Profile', { userId })}
-        >
-        <Feather name="user" size={28} />
-        <TouchableOpacity
-          style={styles.addFriendButton}
-          onPress={() => navigation.navigate('SearchFriends', { userId })}
-        >
-          <Feather name="user-plus" size={28} color="#fff" />
-        </TouchableOpacity>
+     <View style={styles.navBar}>
+       <TouchableOpacity
+         style={styles.navButton}
+         onPress={() => navigation.navigate('Profile', { userId })}
+       >
+         <Feather name="user" size={28} />
+       </TouchableOpacity>
 
-        </TouchableOpacity>
+
+
+       <TouchableOpacity
+         style={styles.navButton}
+         onPress={() => navigation.navigate('CreateEvent', { userId })}
+       >
+         <Feather name="plus-circle" size={28} />
+       </TouchableOpacity>
+
+       <TouchableOpacity
+         style={styles.navButton}
+         onPress={() => navigation.navigate('MapScreen')}
+       >
+         <Feather name="map" size={28} />
+       </TouchableOpacity>
+
         <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate('CreateEvent', { userId })}
-        >
-          <Feather name="plus-circle" size={28} />
+                style={styles.navButton}
+                onPress={() => navigation.navigate('Notifications', { userId })}
+              >
+                <Feather name="bell" size={28} />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => navigation.navigate('MapScreen')}
-        >
-          <Feather name="map" size={28} />
-        </TouchableOpacity>
-      </View>
+     </View>
+
     </View>
   );
 }
