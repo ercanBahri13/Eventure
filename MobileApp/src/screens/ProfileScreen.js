@@ -66,7 +66,7 @@ export default function ProfileScreen({ route, navigation }) {
       {/* Friends Count */}
       <TouchableOpacity onPress={handleFriendsPress}>
         <Text style={styles.friends}>
-          Friends: {userData.friends}
+          Friends {userData.friends}
         </Text>
       </TouchableOpacity>
 

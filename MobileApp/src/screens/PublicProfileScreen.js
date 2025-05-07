@@ -65,7 +65,7 @@
 
        <TouchableOpacity onPress={() => navigation.navigate('FriendList', { userId: viewedUserId, currentUserId })}>
          <Text style={styles.friends}>
-          Friends: {userData.friends ? userData.friends.length : 0}
+          Friends {userData.friends}
           </Text>
        </TouchableOpacity>
 

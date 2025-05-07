@@ -1,8 +1,9 @@
 // frontend/src/screens/HomeScreen.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import {  Alert, View, Text, TextInput, Button, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import { Picker } from '@react-native-picker/picker';
+import Geolocation from '@react-native-community/geolocation';
 
 
 export default function HomeScreen({ navigation, route }) {
@@ -12,6 +13,8 @@ export default function HomeScreen({ navigation, route }) {
   const userId = user?.id;
   const [typeFilter, setTypeFilter] = useState('');
   const [cityFilter, setCityFilter] = useState('');
+  const username = user?.username;
+  const phone    = user?.phoneNumber;
 
   //const {userId } = route.params || {};
 
@@ -45,6 +48,37 @@ export default function HomeScreen({ navigation, route }) {
     // For now, just navigate back to Welcome
     navigation.navigate('Welcome');
   };
+  // ─── SAFETY button handler
+  const sendSafetyAlert = () => {
+    Geolocation.requestAuthorization();
+    Geolocation.getCurrentPosition(
+      async pos => {
+        const { latitude, longitude } = pos.coords;
+        console.log("📍 Got location:", latitude, longitude);
+        try {
+          console.log("📡 Sending POST /safety-alert …");
+          const res = await fetch('http://10.0.2.2:8080/safety-alert', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ userId, latitude, longitude })
+          });
+           console.log("📨 Response status:", res.status);
+           const text = await res.text();
+           console.log("📨 Response body:", text);
+           if (res.ok) Alert.alert('Sent', 'Safety alert e-mail sent.');
+           else Alert.alert('Error', await res.text());
+         } catch (err) {
+           console.error("⚠️ Fetch failed:", err);
+           Alert.alert('Error', err.message);
+         }
+       },
+        err => {
+          console.error("⚠️ Geolocation error:", err);
+          Alert.alert('Location error', err.message);
+        },
+        { enableHighAccuracy:true, timeout:10000, maximumAge:10000 }
+      );
+    };
 
 const renderEventItem = ({ item }) => (
   <TouchableOpacity
@@ -150,6 +184,9 @@ const renderMapItem = ({ item }) => (
 
 
      <View style={styles.navBar}>
+       <TouchableOpacity style={styles.navButton} onPress={sendSafetyAlert}>
+         <Text style={{fontSize:18, color:'red'}}>SOS</Text>
+       </TouchableOpacity>
        <TouchableOpacity
          style={styles.navButton}
          onPress={() => navigation.navigate('Profile', { userId })}

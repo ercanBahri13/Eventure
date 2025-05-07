@@ -192,7 +192,9 @@ export default function CommentsSection({ eventId, userId, organizerId, eventDat
     <View style={{ flex: 1 }}>
       {/* Countdown (if you want) */}
       <Text style={styles.countdown}>
-        Event in {moment(eventDate).diff(moment(), 'days')} days
+        {moment(eventDate).diff(moment(), 'days') >= 0
+          ? `Event in ${moment(eventDate).diff(moment(), 'days')} days`
+          : 'Event is past'}
       </Text>
 
       {/* New comment input */}
