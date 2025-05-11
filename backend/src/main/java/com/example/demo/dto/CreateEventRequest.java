@@ -1,5 +1,5 @@
 package com.example.demo.dto;
-
+import java.util.List;
 public class CreateEventRequest {
     public Long userId;
     public String name;
@@ -13,7 +13,7 @@ public class CreateEventRequest {
     public String imageUrl;
     private double latitude;
     private double longitude;
-
+    private List<String> tags;
 
     public double getLatitude() {
         return latitude;
@@ -26,5 +26,13 @@ public class CreateEventRequest {
     }
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<String> getTags() {
+        return tags;
     }
 }

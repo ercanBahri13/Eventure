@@ -90,6 +90,14 @@ const renderEventItem = ({ item }) => (
       })
     }
   >
+     //this is the new supposedly deleted
+   <TouchableOpacity
+     style={styles.navButton}
+     onPress={() => navigation.navigate('RecommendedEvents', { userId })}
+   >
+     <Feather name="star" size={28} />
+   </TouchableOpacity>
+   //this is the new supposedly deleted
 
    {/* If there's an imageUrl, display it */}
     {item.imageUrl ? (
@@ -193,7 +201,14 @@ const renderMapItem = ({ item }) => (
        >
          <Feather name="user" size={28} />
        </TouchableOpacity>
-
+       //supposedly deleted
+       <TouchableOpacity
+           style={styles.navButton}
+           onPress={() => navigation.navigate('RecommendedEvents', { userId })}
+         >
+           <Feather name="star" size={28} />
+       </TouchableOpacity>
+       //supposedly deleted
 
 
        <TouchableOpacity

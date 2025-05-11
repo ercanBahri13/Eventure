@@ -55,6 +55,7 @@ public class EventController {
         r.imageUrl = e.getImageUrl();
         r.latitude = e.getLatitude();
         r.longitude = e.getLongitude();
+        r.tags = e.getTags();
         return r;
     }
 

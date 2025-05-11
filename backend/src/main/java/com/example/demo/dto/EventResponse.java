@@ -3,6 +3,8 @@ package com.example.demo.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
 
 public class EventResponse {
     public Long id;
@@ -19,4 +21,9 @@ public class EventResponse {
     public String imageUrl;
     public double latitude;
     public double longitude;
+
+    public List<String> tags;
+
+
+
 }

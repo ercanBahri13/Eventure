@@ -15,6 +15,7 @@ export default function CreateEventScreen({ route, navigation }) {
   const [imageUrl, setImageUrl] = useState('');
   const [latitude, setLatitude]   = useState('');
   const [longitude, setLongitude] = useState('');
+  const [tags, setTags] = useState('');
 
   const handleCreateEvent = async () => {
     try {
@@ -33,7 +34,8 @@ export default function CreateEventScreen({ route, navigation }) {
           longitude: parseFloat(longitude),
           location,
           capacity: parseInt(capacity),
-          imageUrl
+          imageUrl,
+          tags: tags.split(',').map(tag => tag.trim())  // <== add this
         }),
       });
       if (response.ok) {
@@ -62,7 +64,26 @@ export default function CreateEventScreen({ route, navigation }) {
       <TextInput style={styles.input} placeholder="Image URL" value={imageUrl} onChangeText={setImageUrl} />
       <TextInput style={styles.input} placeholder="Latitude (e.g. 41.0082)" value={latitude} onChangeText={setLatitude} keyboardType="numeric" />
       <TextInput style={styles.input} placeholder="Longitude (e.g. 28.9784)" value={longitude} onChangeText={setLongitude} keyboardType="numeric" />
-
+      {/* Tags Input */}
+            <TextInput
+              style={styles.input}
+              placeholder="Tags (comma-separated)"
+              value={tags}
+              onChangeText={setTags}  // Updates the tags state
+            />
+            {/* Display Tags */}
+            <View>
+              {tags && tags.length > 0 ? (
+                tags.split(',').map((tag, index) => (
+                  <Text key={index} style={styles.tag}>
+                    {tag.trim()}
+                  </Text>
+                ))
+              ) : (
+                <Text>No tags added</Text>
+              )}
+            </View>
+      //possbily deleted
       <Button title="Save Event" onPress={handleCreateEvent} />
     </View>
   );

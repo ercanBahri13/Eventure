@@ -60,7 +60,7 @@ public class EventService {
         event.setLongitude(req.getLongitude());
         // 3) Link the creator
         event.setCreator(creator);
-
+        event.setTags(req.getTags());
 
         // 4) Save
         return eventRepository.save(event);

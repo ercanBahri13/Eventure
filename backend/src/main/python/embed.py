@@ -7,8 +7,9 @@ model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def main():
     text = sys.stdin.read().strip()
-    embedding = model.encode(text)()
-    print(json.dumps(embedding.tolist))
+    embedding = model.encode(text)
+    print(json.dumps(embedding.tolist()))  # Call .tolist() as a method
 
-if __name__ == "__main__":
+
+if _name_ == "_main_":
     main()

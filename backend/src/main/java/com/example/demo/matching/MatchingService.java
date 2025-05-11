@@ -4,20 +4,24 @@ import com.example.demo.entities.User;
 import com.example.demo.entities.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.example.demo.services.EventService;
 import java.util.Map;
 import java.util.HashMap;
-
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.ArrayList;
 @Service
 public class MatchingService {
 
     private final EmbeddingService embeddingService;
+    private final EventService eventService;
     private final Map<Long, float[]> userEmbeddings = new HashMap<>();
     private final Map<Long, float[]> eventEmbeddings = new HashMap<>();
 
     @Autowired
-    public MatchingService(EmbeddingService embeddingService) {
+    public MatchingService(EmbeddingService embeddingService,EventService eventService) {
         this.embeddingService = embeddingService;
+        this.eventService = eventService;
     }
 
     // For embedding the interests of a User
@@ -92,4 +96,29 @@ public class MatchingService {
 
         return dotProduct / (Math.sqrt(magnitudeVec1) * Math.sqrt(magnitudeVec2));
     }
+    public List<Long> findMatchingEvents(User user, double threshold) {
+        float[] userEmbedding = getUserEmbedding(user);
+        if (userEmbedding == null) {
+            throw new IllegalArgumentException("User embedding not found");
+        }
+
+        List<Long> matchingEventIds = new ArrayList<>();
+        List<Event> allEvents = eventService.getAllEvents();
+        for (Event event : allEvents) {
+            float[] eventEmbedding = getEventEmbedding(event);
+
+            if (eventEmbedding == null || eventEmbedding.length == 0) {
+                System.err.println("Skipping event " + event.getId() + " due to missing embedding.");
+                continue;
+            }
+
+            double similarity = cosineSimilarity(userEmbedding, eventEmbedding);
+            System.out.println("Event ID: " + event.getId() + " → similarity: " + similarity);
+
+            if (similarity >= threshold) {
+                matchingEventIds.add(event.getId());
+            }
+        }
+        return matchingEventIds;
+        }
 }
